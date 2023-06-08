@@ -54,14 +54,14 @@ maxiter = 1000                      # count of iterations
 #dev = np.zeros((maxiter, 2))        # for monitoring purposes
 
 
-## --- FBF_Penalty_Scheme ---
-from inpainting.FBF_penalty import FBF
-x_FBF, z_FBF, time_FBF , ISNR_av_FBF, ISNR_nonav_FBF = FBF(X,maxiter,B_noise,tv_switch,K,lambda_1)
-
 ## --- FBF_EP_Penalty_Scheme ---
 from inpainting.FBF_EP_penalty import FBF_EP
 x_FBF_EP, z_FBF_EP, time_FBF_EP , ISNR_av_FBF_EP, ISNR_nonav_FBF_EP = FBF_EP(X,maxiter,B_noise,tv_switch,K,lambda_1)
 
+
+## --- FBF_Penalty_Scheme ---
+from inpainting.FBF_penalty import FBF
+x_FBF, z_FBF, time_FBF , ISNR_av_FBF, ISNR_nonav_FBF = FBF(X,maxiter,B_noise,tv_switch,K,lambda_1)
 
 X.astype(float)
 ## Show image results
@@ -70,8 +70,7 @@ show_images(X,B_noise,x_FBF,z_FBF)
 
 ## Plot results
 from inpainting.plot_graphs import plot_graphs
-plot_graphs(maxiter,ISNR_av_FBF,ISNR_nonav_FBF)
-plot_graphs(maxiter,ISNR_av_FBF_EP,ISNR_nonav_FBF_EP)
+plot_graphs(maxiter,ISNR_av_FBF,ISNR_nonav_FBF,ISNR_av_FBF_EP,ISNR_nonav_FBF_EP)
 
 
 

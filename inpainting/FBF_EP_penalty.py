@@ -23,8 +23,8 @@ def FBF_EP(X,maxiter,B_noise,tv_switch,K,lambda_1):
     isnrnonav = np.zeros(maxiter)
     
     ######reused parameters
-    R1=L_trans(q11,q12);
-    [G01,G02]=L(y0);
+    R1 = L_trans(q11,q12);
+    [G01,G02] = L(y0);
 
     print("********** Penalty Splitting for FWF-EP *************")
     tic2 = time.time()
@@ -96,30 +96,3 @@ def FBF_EP(X,maxiter,B_noise,tv_switch,K,lambda_1):
     f'Elapsed time is {toc2} seconds.'
 
     return x_opt, z, toc2, isnrav, isnrnonav
-
-
-    # #ISNR variable
-    # isnraveraged_EP = isnrav;
-    # isnrnonaveraged_EP = isnrnonav;
-
-    # # Shoe image results
-    # import matplotlib.pyplot as plt
-
-    # fig, axs = plt.subplots(1, 4, figsize=(20, 5))
-    # axs[0].imshow(X, cmap='gray')
-    # axs[0].set_title('original')
-    # axs[1].imshow(B_noise, cmap='gray')
-    # axs[1].set_title('noisy image')
-    # axs[2].imshow(x_opt, cmap='gray')
-    # axs[2].set_title('nonaveraged denoised image')
-    # axs[3].imshow(z, cmap='gray')
-    # axs[3].set_title('averaged denoised image')
-
-    # # Plot results
-    # plt.figure()
-    # plt.plot(range(1, maxiter + 1), isnraveraged_EP)
-    # plt.plot(range(1, maxiter + 1), isnrnonaveraged_EP, '--')
-    # plt.xlabel('Iterations')
-    # plt.ylabel('ISNR')
-    # plt.legend(['isnr averaged EP', 'isnr nonaveraged EP'])
-    # plt.show()
