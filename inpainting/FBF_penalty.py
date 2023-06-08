@@ -24,7 +24,7 @@ def FBF(X,maxiter,B_noise,tv_switch,K,lambda_1):
 
     while k <= maxiter:
         # Compute gamma and beta
-        gamma = (1 - 1e-1) / (k ** 0.75)        # \lambda_n
+        gamma = (1 - 1e-1) / (2 * k**0.75)        # \lambda_n
         beta = k ** 0.75                        # \beta_n 
 
         # Compute a and b

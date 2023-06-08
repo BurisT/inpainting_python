@@ -23,15 +23,15 @@ def FBF_EP(X,maxiter,B_noise,tv_switch,K,lambda_1):
     isnrnonav = np.zeros(maxiter)
     
     ######reused parameters
-    R1 = L_trans(q11,q12);
-    [G01,G02] = L(y0);
+    R1 = L_trans(q11,q12)
+    [G01,G02] = L(y0)
 
     print("********** Penalty Splitting for FWF-EP *************")
     tic2 = time.time()
 
     while k <= maxiter:
         # Compute gamma and beta
-        gamma = (1 - 1e-1) / (k ** 0.75)        # \lambda_n
+        gamma = (1 - 1e-1) / (2* k**0.75)        # \lambda_n
         beta = k ** 0.75                        # \beta_n 
 
         # Compute a and b
@@ -75,6 +75,7 @@ def FBF_EP(X,maxiter,B_noise,tv_switch,K,lambda_1):
         
         #updating parameters
         x = new_x
+        y0=y1
         q11=q2_11
         q12=q2_12
         v11 = new_v11

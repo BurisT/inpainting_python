@@ -13,13 +13,6 @@ def plot_graphs(maxiter,ISNR_av_FBF,ISNR_nonav_FBF,ISNR_av_FBF_EP,ISNR_nonav_FBF
     plt.xlabel('Iterations')
     plt.ylabel('ISNR')
 
-    plt.legend(['ISNR averaged', 'ISNR nonaveraged', 'ISNR averaged EP', 'ISNR nonaveraged EP'], loc='lower right')
+    plt.legend(['ISNR averaged FBF', 'ISNR nonaveraged FBF', 'ISNR averaged FBF-EP', 'ISNR nonaveraged FBF-EP'], loc='lower right')
 
-    plt.show()
-
-    # plt.figure()
-    # plt.plot(range(1, maxiter + 1), ISNR_av_FBF)
-    # plt.plot(range(1, maxiter + 1), ISNR_nonav_FBF, '--')
-    # plt.xlabel('Iterations')
-    # plt.ylabel('ISNR')
-    # plt.legend(['ISNR averaged', 'ISNR nonaveraged'])
+    

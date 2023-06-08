@@ -50,7 +50,7 @@ RMSE_eps=1e-3              # one possible stopping criterion
 # a = np.zeros(x.shape)               # initialization for the weighted average z=a/b
 # b = 0                               # initialization for the weighted average 
 
-maxiter = 1000                      # count of iterations
+maxiter = 2000                   # count of iterations
 #dev = np.zeros((maxiter, 2))        # for monitoring purposes
 
 
@@ -58,24 +58,34 @@ maxiter = 1000                      # count of iterations
 from inpainting.FBF_EP_penalty import FBF_EP
 x_FBF_EP, z_FBF_EP, time_FBF_EP , ISNR_av_FBF_EP, ISNR_nonav_FBF_EP = FBF_EP(X,maxiter,B_noise,tv_switch,K,lambda_1)
 
-
 ## --- FBF_Penalty_Scheme ---
 from inpainting.FBF_penalty import FBF
 x_FBF, z_FBF, time_FBF , ISNR_av_FBF, ISNR_nonav_FBF = FBF(X,maxiter,B_noise,tv_switch,K,lambda_1)
 
+## Show timeprint('Elapsed time of FBF is ',time_FBF)
+print('------------------------',)
+print('Elapsed time of FBF is %.5f'%(time_FBF))
+print('Elapsed time of FBF_EP is %.5f'%(time_FBF_EP))
+
+## Show ISNR
+print('------------------------',)
+print(f'ISNR value at {maxiter} iteration of averaged FBF is {ISNR_av_FBF[maxiter-1]:.5f}')
+print(f'ISNR value at {maxiter} iteration of non-averaged FBF is {ISNR_nonav_FBF[maxiter-1]:.5f}')
+print(f'ISNR value at {maxiter} iteration of averaged FBF-EP is {ISNR_av_FBF_EP[maxiter-1]:.5f}')
+print(f'ISNR value at {maxiter} iteration of non-averaged FBF-EP is {ISNR_nonav_FBF_EP[maxiter-1]:.5f}')
+print('------------------------',)
+
 X.astype(float)
 ## Show image results
-from inpainting.show_images import show_images
-show_images(X,B_noise,x_FBF,z_FBF)
+# from inpainting.show_images import show_images
+# show_images(X,B_noise,x_FBF,z_FBF)
 
 ## Plot results
 from inpainting.plot_graphs import plot_graphs
 plot_graphs(maxiter,ISNR_av_FBF,ISNR_nonav_FBF,ISNR_av_FBF_EP,ISNR_nonav_FBF_EP)
+from inpainting.plot_Figs import plot_Figs
+plot_Figs(X,B_noise,x_FBF,z_FBF,x_FBF_EP,z_FBF_EP)
 
-
-
-print('Elapsed time of FBF is ',time_FBF)
-print('Elapsed time of FBF_EP is ',time_FBF_EP)
 
 # ## average time
 # import timeit
