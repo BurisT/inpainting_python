@@ -39,21 +39,28 @@ lambda_1=1                 # regularization parameter, not needed, therefore set
 RMSE_eps=1e-3              # one possible stopping criterion
 
 
+# # Define initial variables
+# k = 1                               # iteration counting
+# x = B_noise.copy()                  # starting point     # By using B_noise.copy() instead of B_noise directly, any changes made to the copy will not affect the original array. This can be useful when working with large arrays or when you want to keep the original data intact.
+# v11 = np.zeros(X.shape)             # y1=x0
+# v12 = np.zeros(X.shape)            
+# q11=v11                             # need for FBF_EP
+# q12=q11                             # need for FBF_EP
+# y0=x                                # need for FBF_EP
+# a = np.zeros(x.shape)               # initialization for the weighted average z=a/b
+# b = 0                               # initialization for the weighted average 
 
-# Define initial variables
-k = 1                               # iteration counting
-x = B_noise.copy()                  # starting point     # By using B_noise.copy() instead of B_noise directly, any changes made to the copy will not affect the original array. This can be useful when working with large arrays or when you want to keep the original data intact.
-v11 = np.zeros(X.shape)             # y1=x0
-v12 = np.zeros(X.shape)            
-a = np.zeros(x.shape)               # initialization for the weighted average z=a/b
-b = 0                               # initialization for the weighted average 
 maxiter = 1000                      # count of iterations
 #dev = np.zeros((maxiter, 2))        # for monitoring purposes
 
 
-## FBF_Penalty_Scheme
+## --- FBF_Penalty_Scheme ---
 from inpainting.FBF_penalty import FBF
-x_FBF, z_FBF, time_FBF , ISNR_av_FBF, ISNR_nonav_FBF = FBF(X,maxiter,k,x,a,b,B_noise,v11,v12,tv_switch,K,lambda_1)
+x_FBF, z_FBF, time_FBF , ISNR_av_FBF, ISNR_nonav_FBF = FBF(X,maxiter,B_noise,tv_switch,K,lambda_1)
+
+## --- FBF_EP_Penalty_Scheme ---
+from inpainting.FBF_EP_penalty import FBF_EP
+x_FBF_EP, z_FBF_EP, time_FBF_EP , ISNR_av_FBF_EP, ISNR_nonav_FBF_EP = FBF_EP(X,maxiter,B_noise,tv_switch,K,lambda_1)
 
 
 X.astype(float)
@@ -64,10 +71,12 @@ show_images(X,B_noise,x_FBF,z_FBF)
 ## Plot results
 from inpainting.plot_graphs import plot_graphs
 plot_graphs(maxiter,ISNR_av_FBF,ISNR_nonav_FBF)
+plot_graphs(maxiter,ISNR_av_FBF_EP,ISNR_nonav_FBF_EP)
 
 
 
 print('Elapsed time of FBF is ',time_FBF)
+print('Elapsed time of FBF_EP is ',time_FBF_EP)
 
 # ## average time
 # import timeit

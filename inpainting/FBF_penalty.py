@@ -2,7 +2,19 @@ import time
 from inpainting.discrete_gradient_operator import L,L_trans
 import numpy as np
 
-def FBF(X,maxiter,k,x,a,b,B_noise,v11,v12,tv_switch,K,lambda_1):
+def FBF(X,maxiter,B_noise,tv_switch,K,lambda_1):
+    # Define initial variables
+    k = 1                               # iteration counting
+    x = B_noise.copy()                  # starting point     # By using B_noise.copy() instead of B_noise directly, any changes made to the copy will not affect the original array. This can be useful when working with large arrays or when you want to keep the original data intact.
+    v11 = np.zeros(X.shape)             # y1=x0
+    v12 = np.zeros(X.shape)            
+    # q11=v11                             # need for FBF_EP
+    # q12=q11                             # need for FBF_EP
+    # y0=x                                # need for FBF_EP
+    a = np.zeros(x.shape)               # initialization for the weighted average z=a/b
+    b = 0                               # initialization for the weighted average 
+
+
     x_opt = np.zeros(X.shape)
     isnrav = np.zeros(maxiter)
     isnrnonav = np.zeros(maxiter)
